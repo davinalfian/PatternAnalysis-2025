@@ -133,8 +133,8 @@ class ImprovedUNet(nn.Module):
         return logits
     
 
-if __name__ == "__main__":
-    model = ImprovedUNet(n_channels=1, n_classes=3)
-    x = torch.randn(1, 1, 256, 256)
-    y = model(x)
-    print(y.shape)
+# if __name__ == "__main__":
+#     model = ImprovedUNet(n_channels=1, n_classes=3)
+#     x = torch.randn(1, 1, 256, 256)
+#     y = model(x)
+#     print(y.shape)
