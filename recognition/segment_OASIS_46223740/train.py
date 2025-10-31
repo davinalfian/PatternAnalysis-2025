@@ -12,11 +12,11 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"using device: {device}")
 
 # "/home/groups/comp3710/OASIS"
-dir = "/home/groups/comp3710/"
-train_dataset = OASISDataset(dir + "OASIS/keras_png_slices_train", dir + "OASIS/keras_png_slices_seg_train")
+# dir = "/home/groups/comp3710/"
+train_dataset = OASISDataset("OASIS/keras_png_slices_train", "OASIS/keras_png_slices_seg_train")
 train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
 
-val_dataset = OASISDataset(dir + "OASIS/keras_png_slices_validate", dir + "OASIS/keras_png_slices_seg_validate")
+val_dataset = OASISDataset("OASIS/keras_png_slices_validate", "OASIS/keras_png_slices_seg_validate")
 val_loader = DataLoader(val_dataset, batch_size=2, shuffle=True)
 
 # Classes color index are [0 85 170 255]
@@ -24,7 +24,7 @@ model = ImprovedUNet(n_channels=1, n_classes=4)
 model = model.to(device)
 
 lr = 1e-4
-epochs = 30
+epochs = 50
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 

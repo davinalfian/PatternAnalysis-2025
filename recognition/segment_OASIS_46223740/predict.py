@@ -45,7 +45,7 @@ print(f"Best Epoch {best_epoch}")
 print(f"  Test Dice Score: {test_dice:.4f} \n")
 
 for i, score in enumerate(test_dice_per_class):
-    print(f"Class {i} - Dice score: {score}")
+    print(f"Class {i} - Dice score: {score:.4f}")
 
 end_time = time.time()
 print(f"\nTotal time: {(end_time - start_time)/60:.2f}")
