@@ -11,11 +11,12 @@ from torch.utils.data import DataLoader
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"using device: {device}")
 
-
-train_dataset = OASISDataset("OASIS/keras_png_slices_train", "OASIS/keras_png_slices_seg_train")
+# "/home/groups/comp3710/OASIS"
+dir = "/home/groups/comp3710/"
+train_dataset = OASISDataset(dir + "OASIS/keras_png_slices_train", dir + "OASIS/keras_png_slices_seg_train")
 train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
 
-val_dataset = OASISDataset("OASIS/keras_png_slices_validate", "OASIS/keras_png_slices_seg_validate")
+val_dataset = OASISDataset(dir + "OASIS/keras_png_slices_validate", dir + "OASIS/keras_png_slices_seg_validate")
 val_loader = DataLoader(val_dataset, batch_size=2, shuffle=True)
 
 # Classes color index are [0 85 170 255]
@@ -90,7 +91,8 @@ for epoch in range(epochs):
             'epoch': epoch+1,
             'model_state_dict': model.state_dict(),
             'optimizer_state_dict': optimizer.state_dict(),
-            'best_dice': best_dice
+            'best_dice': best_dice,
+            'performance_tracking': performance_tracking
         }
 
 end_time = time.time()

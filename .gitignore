@@ -1,3 +1,6 @@
 env
 recognition/segment_OASIS_46223740/OASIS
 recognition/segment_OASIS_46223740/__pycache__
+recognition/segment_OASIS_46223740/unet_output
+recognition/segment_OASIS_46223740/run_unet.sh
+recognition/segment_OASIS_46223740/oasis_checkpoint.pth
