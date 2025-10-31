@@ -1,11 +1,10 @@
 from modules import ImprovedUNet
 from dataset import OASISDataset
-from utils import dice_coefficient_per_class
+from utils import dice_coefficient_per_class, training_plots
 
 import time
 import torch
 import numpy as np
-import torch.nn as nn
 from torch.utils.data import DataLoader
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -50,3 +49,8 @@ for i, score in enumerate(test_dice_per_class):
 
 end_time = time.time()
 print(f"\nTotal time: {(end_time - start_time)/60:.2f}")
+
+
+print("\nPlotting losses and metrics...")
+training_plots(checkpoint['performance_tracking'])
+print("Plotting complete!")

@@ -99,11 +99,3 @@ end_time = time.time()
 torch.save(checkpoint, 'oasis_checkpoint.pth')
 
 print(f"\nTotal time: {(end_time - start_time)/60:.2f}")
-
-
-# plt.figure(figsize=(10, 10))
-# plt.plot(range(epochs), performance_tracking['train_loss'], label='training_loss')
-# plt.plot(range(epochs), performance_tracking['val_loss'], label='validation_loss')
-# plt.legend(loc='upper right')
-# plt.title('Training Loss and Validation Loss')
-# plt.savefig('fcn-output/fcn-model-loss.png')
