@@ -1,4 +1,5 @@
 import torch
+import random
 import matplotlib.pyplot as plt
 
 def dice_coefficient(pred, target, num_classes=4, epsilon=1e-6):
@@ -49,3 +50,42 @@ def training_plots(performance_tracking):
     plt.legend(loc='upper right')
     plt.title('Dice scores')
     plt.savefig('unet_output/unet-dice-scores.png')
+
+def brain_visualization(model, dataset, device, num_samples=3, indices=None):
+    if indices is None:
+        random.seed(26)
+        indices = random.sample(range(len(dataset)), num_samples)
+    
+    _, axes = plt.subplots(num_samples, 3, figsize=(12, 12))
+    columns = ["Image", "Ground Truth", "Prediction"]
+
+    for col, title in enumerate(columns):
+        axes[0, col].set_title(title, fontsize=14)
+    
+    with torch.no_grad():
+        for row, idx in enumerate(indices):
+            image, mask = dataset[idx]
+
+            input_tensor = image.unsqueeze(0).to(device)
+            output = model(input_tensor)
+            pred_mask = torch.argmax(output.squeeze(), dim=0).cpu().numpy()
+
+            image_np = image.squeeze(0).cpu().numpy()
+            image_np = (image_np - image_np.min()) / (image_np.max() - image_np.min())
+
+            mask_np = mask.cpu().numpy()
+
+            mask_np = mask_np * 85
+            pred_mask = pred_mask * 85
+
+            axes[row, 0].imshow(image_np, cmap='gray')
+            axes[row, 0].axis("off")
+
+            axes[row, 1].imshow(mask_np, cmap='gray', interpolation="nearest")
+            axes[row, 1].axis("off")
+
+            axes[row, 2].imshow(pred_mask, cmap='gray', interpolation="nearest")
+            axes[row, 2].axis("off")
+    
+    plt.tight_layout()
+    plt.savefig('unet_output/unet-brains.png')

@@ -1,6 +1,6 @@
 from modules import ImprovedUNet
 from dataset import OASISDataset
-from utils import dice_coefficient_per_class, training_plots
+from utils import dice_coefficient_per_class, training_plots, brain_visualization
 
 import time
 import torch
@@ -51,6 +51,7 @@ end_time = time.time()
 print(f"\nTotal time: {(end_time - start_time)/60:.2f}")
 
 
-print("\nPlotting losses and metrics...")
+print("\nPlotting losses, metrics, and visualization...")
 training_plots(checkpoint['performance_tracking'])
+brain_visualization(model, test_dataset, device)
 print("Plotting complete!")
